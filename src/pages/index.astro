@@ -2,14 +2,20 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 import { projects } from "../data/projects";
+import { professionalProjects } from "../data/professionalProjects";
 import { siteConfig } from "../data/site";
 import { skillGroups } from "../data/skills";
 
+const featuredProjects = projects.slice(0, 3);
+const extraProjects = projects.slice(3);
+const skillsNote = "note" in siteConfig.skills ? siteConfig.skills.note : undefined;
+
 const sections = [
   { id: "intro", label: "Intro", icon: "intro" },
-  { id: "projects", label: "Selected Projects", icon: "note" },
+  { id: "services", label: "Services", icon: "package" },
+  { id: "professional-projects", label: "Professional", icon: "briefcase" },
+  { id: "projects", label: "Personal", icon: "spark" },
   { id: "skills", label: "Skills", icon: "skills" },
-  { id: "background", label: "Background", icon: "note" },
   { id: "contact", label: "Contact", icon: "email" }
 ] as const;
 ---
@@ -47,10 +53,65 @@ const sections = [
     </header>
 
     <main class="content-stack">
+      <section class="section-block" id="services">
+        <div class="section-heading">
+          <h2 class="section-title">
+            <Icon name="package" class="ui-icon ui-icon--section" />
+            <span>{siteConfig.services.title}</span>
+          </h2>
+        </div>
+
+        <div class="services-copy">
+          {siteConfig.services.body.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+
+        <div class="services-list">
+          {siteConfig.services.items.map((service, index) => (
+            <article class="service-item">
+              <div class="service-item__icon" aria-hidden="true">
+                {index === 0 && <Icon name="gear" class="ui-icon ui-icon--service" />}
+                {index === 1 && <Icon name="server" class="ui-icon ui-icon--service" />}
+                {index === 2 && <Icon name="inspect" class="ui-icon ui-icon--service" />}
+              </div>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section-block" id="professional-projects">
+        <div class="section-heading">
+          <h2 class="section-title">
+            <Icon name="briefcase" class="ui-icon ui-icon--section" />
+            <span>{siteConfig.professionalProjects.heading}</span>
+          </h2>
+          <p>{siteConfig.professionalProjects.note}</p>
+        </div>
+
+        <p class="section-disclaimer">{siteConfig.professionalProjects.disclaimer}</p>
+
+        {professionalProjects.length > 0 ? (
+          <ul class="professional-project-list">
+            {professionalProjects.map((project, index) => (
+              <li class="professional-project-item">
+                <div class="professional-project-item__meta">0{index + 1}</div>
+                <div class="professional-project-item__body">
+                  <h3>{project.title}</h3>
+                  <p>{project.summary}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="professional-project-empty">{siteConfig.professionalProjects.empty}</p>
+        )}
+      </section>
+
       <section class="section-block" id="projects">
         <div class="section-heading">
           <h2 class="section-title">
-            <Icon name="note" class="ui-icon ui-icon--section" />
+            <Icon name="spark" class="ui-icon ui-icon--section" />
             <span>{siteConfig.projects.heading}</span>
           </h2>
           <p>{siteConfig.projects.note}</p>
@@ -58,7 +119,7 @@ const sections = [
 
         <div class="project-list">
           {
-            projects.map((project, index) => (
+            featuredProjects.map((project, index) => (
               <article class="project-card">
                 <div class="project-card__meta">0{index + 1}</div>
                 <div class="project-card__body">
@@ -100,6 +161,58 @@ const sections = [
             ))
           }
         </div>
+
+        {extraProjects.length > 0 && (
+          <details class="project-overflow">
+            <summary>Show {extraProjects.length} more project{extraProjects.length === 1 ? "" : "s"}</summary>
+            <div class="project-list project-list--extra">
+              {
+                extraProjects.map((project, index) => (
+                  <article class="project-card">
+                    <div class="project-card__meta">
+                      0{featuredProjects.length + index + 1}
+                    </div>
+                    <div class="project-card__body">
+                      <div class="project-card__heading">
+                        <h3>{project.title}</h3>
+                        {(project.projectUrl || project.githubUrl) && (
+                          <div class="project-card__links">
+                            {project.projectUrl && (
+                              <a href={project.projectUrl} target="_blank" rel="noreferrer">
+                                <Icon name="arrow-up-right" class="ui-icon ui-icon--link" />
+                                <span>project</span>
+                              </a>
+                            )}
+                            {project.githubUrl && (
+                              <a href={project.githubUrl} target="_blank" rel="noreferrer">
+                                <Icon name="github" class="ui-icon ui-icon--link" />
+                                <span>github</span>
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                      <p>{project.summary}</p>
+                      <p class="project-card__detail">
+                        <span class="project-card__label">Why?</span>
+                        <span>{project.why}</span>
+                      </p>
+                      <p class="project-card__detail project-card__learned">
+                        <span class="project-card__label">Learned</span>
+                        <span>{project.learned}</span>
+                      </p>
+                    </div>
+                    {project.tags && (
+                      <ul class="tag-list" aria-label={`${project.title} tags`}>
+                        {project.tags.map((tag) => <li>{tag}</li>)}
+                      </ul>
+                    )}
+                  </article>
+                ))
+              }
+            </div>
+          </details>
+        )}
       </section>
 
       <section class="section-block" id="skills">
@@ -108,7 +221,7 @@ const sections = [
             <Icon name="skills" class="ui-icon ui-icon--section" />
             <span>{siteConfig.skills.heading}</span>
           </h2>
-          <p>{siteConfig.skills.note}</p>
+          {skillsNote && <p>{skillsNote}</p>}
         </div>
 
         <div class="skills-list">
@@ -122,18 +235,6 @@ const sections = [
               </article>
             ))
           }
-        </div>
-      </section>
-
-      <section class="section-block" id="background">
-        <div class="section-heading">
-          <h2 class="section-title">
-            <Icon name="intro" class="ui-icon ui-icon--section" />
-            <span>{siteConfig.background.heading}</span>
-          </h2>
-        </div>
-        <div class="copy-block">
-          {siteConfig.background.body.map((paragraph) => <p>{paragraph}</p>)}
         </div>
       </section>
 

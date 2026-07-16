@@ -10,6 +10,14 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Finding the Finger",
+    summary: "A semantic-search experiment built around perennial philosophy.",
+    why: "I wanted to see whether similarities across religious and philosophical texts could be explored computationally rather than discussed only in vibes.",
+    learned:
+      "Embeddings, data pipelines, web scraping, semantic search, and the difficulty of turning philosophy into a data model.",
+    tags: ["Search", "Embeddings", "Data pipelines"],
+  },
+  {
     title: "CandidateChess.com",
     summary: "A chess-training tool focused on identifying candidate moves.",
     why: "I built it because I’m bad at middlegames and wanted something more targeted than solving random tactical puzzles.",
@@ -18,12 +26,22 @@ export const projects: Project[] = [
     tags: ["Chess", "Distributed systems", "Analysis"],
   },
   {
-    title: "Finding the Finger",
-    summary: "A semantic-search experiment built around perennial philosophy.",
-    why: "I wanted to see whether similarities across religious and philosophical texts could be explored computationally rather than discussed only in vibes.",
+    title: "Homelab",
+    summary:
+      "A self-hosted infrastructure for experimenting with systems, networking, and automation.",
+    why: "I built it because I wanted a place to experiment freely without worrying about breaking production systems—or paying cloud bills.",
     learned:
-      "Embeddings, data pipelines, web scraping, semantic search, and the difficulty of turning philosophy into a data model.",
-    tags: ["Search", "Embeddings", "Data pipelines"],
+      "Infrastructure as Code, Kubernetes, virtualization, self-hosting, and that operating systems is a skill you only really learn by running them.",
+    tags: ["Proxmox", "Kubernetes", "Infrastructure"],
+  },
+  {
+    title: "Azure Honeypot",
+    summary:
+      "A cloud-hosted honeypot that collects and visualizes intrusion attempts.",
+    why: "I built it because I wanted to see what actually happens when an exposed system is left on the internet instead of just reading about it.",
+    learned:
+      "Azure, Microsoft Sentinel, KQL, log analysis, and how noisy the internet really is.",
+    tags: ["Azure", "Cybersecurity", "Threat Intelligence"],
   },
   {
     title: "Rejection Simulator",
@@ -33,5 +51,13 @@ export const projects: Project[] = [
     learned:
       "Procedural text generation, browser interfaces, and algorithmic comedy.",
     tags: ["Web", "Text generation", "Fun"],
+  },
+  {
+    title: "DungeonMasterAssistant.com",
+    summary: "A lightweight web app for running tabletop RPG sessions.",
+    why: "I built it because the tools I was using were either bloated, slow, or tried to do everything except the few things I actually needed.",
+    learned:
+      "Building focused user interfaces, optimizing for simplicity, and that small tools can be more valuable than feature-rich ones.",
+    tags: ["Next.js", "Web", "TTRPG"],
   },
 ];
