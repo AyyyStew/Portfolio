@@ -42,7 +42,12 @@ const sections = [
           <h1>{siteConfig.name}</h1>
           <p class="lede">{siteConfig.intro.heading}</p>
           <div class="hero__body">
-            {siteConfig.intro.body.map((paragraph) => <p>{paragraph}</p>)}
+            <p>
+              My background spans software, infrastructure, embedded systems, networking,
+              cybersecurity, and research.{" "}
+              <span class="copy-emphasis">Different problems demand different tools.</span>
+            </p>
+            <p>{siteConfig.intro.body[1]}</p>
           </div>
           <a class="contact-button contact-button--hero" href={`mailto:${siteConfig.email}`}>
             <Icon name="email" class="ui-icon" />
@@ -62,7 +67,15 @@ const sections = [
         </div>
 
         <div class="services-copy">
-          {siteConfig.services.body.map((paragraph) => <p>{paragraph}</p>)}
+          <p>{siteConfig.services.body[0]}</p>
+          <p>
+            From cloud infrastructure and automation to custom tools and everyday IT
+            headaches, I prefer practical solutions over buzzwords.{" "}
+            <span class="copy-emphasis">
+              If the job is too small for a consulting firm, or you just need someone to
+              finally fix the printer, I'd be happy to take a look.
+            </span>
+          </p>
         </div>
 
         <div class="services-list">
@@ -244,7 +257,9 @@ const sections = [
             <Icon name="email" class="ui-icon ui-icon--section" />
             <span>{siteConfig.contact.heading}</span>
           </h2>
-          <p>{siteConfig.contact.note}</p>
+          <p>
+            The best way to reach me is by <span class="copy-emphasis">email</span>.
+          </p>
         </div>
 
         <div class="contact-primary">

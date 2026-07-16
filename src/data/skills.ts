@@ -14,8 +14,8 @@ export const skillGroups: SkillGroup[] = [
       "Kubernetes",
       "Terraform",
       "Ansible",
-      "Azure"
-    ]
+      "Azure",
+    ],
   },
   {
     title: "Security and networking",
@@ -25,8 +25,8 @@ export const skillGroups: SkillGroup[] = [
       "SIEM",
       "Firewalls",
       "Wireless systems",
-      "Cisco"
-    ]
+      "Cisco",
+    ],
   },
   {
     title: "Automation and development",
@@ -38,11 +38,11 @@ export const skillGroups: SkillGroup[] = [
       "FastAPI",
       "Django",
       "Next.js",
-      "SQL"
-    ]
+      "SQL",
+    ],
   },
-  {
-    title: "Hardware and embedded systems",
-    items: ["Raspberry Pi", "ESP32", "Sensors", "Firmware", "IoT", "RF systems"]
-  }
+  // {
+  //   title: "Hardware and embedded systems",
+  //   items: ["Raspberry Pi", "ESP32", "Sensors", "Firmware", "IoT", "RF systems"]
+  // }
 ];

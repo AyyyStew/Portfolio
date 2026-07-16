@@ -41,7 +41,7 @@ export const siteConfig = {
   },
   skills: {
     heading: "Skills",
-    note: "Generalist on purpose.",
+    note: "My go to toolkit for solving problems.",
   },
   professionalProjects: {
     heading: "Professional Projects",
