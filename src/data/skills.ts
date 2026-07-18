@@ -9,12 +9,14 @@ export const skillGroups: SkillGroup[] = [
     items: [
       "Linux",
       "Windows Server",
-      "Proxmox",
-      "Docker",
+      "Virtualization",
+      "Containerization",
       "Kubernetes",
       "Terraform",
       "Ansible",
       "Azure",
+      "AWS",
+      "ArcGIS",
     ],
   },
   {
@@ -26,6 +28,10 @@ export const skillGroups: SkillGroup[] = [
       "Firewalls",
       "Wireless systems",
       "Cisco",
+      "IP",
+      "DNS",
+      "DHCP",
+      "VPNS",
     ],
   },
   {
