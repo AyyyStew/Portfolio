@@ -421,29 +421,35 @@ h3 {
 }
 
 .project-card__heading {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem 1rem;
   margin-bottom: 0.35rem;
 }
 
-.project-card__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
+.project-card__heading a {
+  color: inherit;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
 }
 
-.project-card__links a {
+.project-card__heading a:hover,
+.project-card__heading a:focus-visible {
+  color: var(--accent-ink);
+}
+
+.project-card__repo-link {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
+  margin-top: 1rem;
   color: var(--ink-soft);
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration-thickness: 0.06em;
   text-underline-offset: 0.14em;
+}
+
+.project-card__repo-link:hover,
+.project-card__repo-link:focus-visible {
+  color: var(--accent-ink);
 }
 
 .project-card p,

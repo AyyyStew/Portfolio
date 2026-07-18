@@ -16,6 +16,8 @@ export const projects: Project[] = [
     learned:
       "Embeddings, data pipelines, web scraping, semantic search, and the difficulty of turning philosophy into a data model.",
     tags: ["Search", "Embeddings", "Data pipelines"],
+    projectUrl: "https://findingthefinger.ayyystew.com",
+    githubUrl: "https://github.com/AyyyStew/FindingTheFinger_2",
   },
   {
     title: "CandidateChess.com",
@@ -24,6 +26,8 @@ export const projects: Project[] = [
     learned:
       "Distributed processing, chess-engine analysis, queue systems, and how expensive it is to analyze a lot of positions.",
     tags: ["Chess", "Distributed systems", "Analysis"],
+    projectUrl: "https://candidatechess.com",
+    githubUrl: "https://github.com/AyyyStew/candidate-chess",
   },
   {
     title: "Homelab",
@@ -33,6 +37,7 @@ export const projects: Project[] = [
     learned:
       "Infrastructure as Code, Kubernetes, virtualization, self-hosting, and that operating systems is a skill you only really learn by running them.",
     tags: ["Proxmox", "Kubernetes", "Infrastructure"],
+    githubUrl: "https://github.com/AyyyStew/Homelab-Cluster",
   },
   {
     title: "Azure Honeypot",
@@ -42,6 +47,7 @@ export const projects: Project[] = [
     learned:
       "Azure, Microsoft Sentinel, KQL, log analysis, and how noisy the internet really is.",
     tags: ["Azure", "Cybersecurity", "Threat Intelligence"],
+    githubUrl: "https://github.com/AyyyStew/AzureHoneyPotLab",
   },
   {
     title: "Rejection Simulator",
@@ -51,6 +57,8 @@ export const projects: Project[] = [
     learned:
       "Procedural text generation, browser interfaces, and algorithmic comedy.",
     tags: ["Web", "Text generation", "Fun"],
+    githubUrl: "https://github.com/AyyyStew/RejectionSimulator",
+    projectUrl: "https://ayyystew.github.io/RejectionSimulator/",
   },
   {
     title: "DungeonMasterAssistant.com",
@@ -59,5 +67,7 @@ export const projects: Project[] = [
     learned:
       "Building focused user interfaces, optimizing for simplicity, and that small tools can be more valuable than feature-rich ones.",
     tags: ["Next.js", "Web", "TTRPG"],
+    githubUrl: "https://github.com/AyyyStew/DungeonMasterAssistant",
+    projectUrl: "https://dungeonmasterassistant.com",
   },
 ];
