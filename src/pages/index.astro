@@ -12,6 +12,7 @@ const extraProjects = projects.slice(3);
 const skillsNote = "note" in siteConfig.skills ? siteConfig.skills.note : undefined;
 
 const getProjectTitleHref = (project: Project) => project.projectUrl ?? project.githubUrl;
+const getProjectThumbnailHref = (project: Project) => project.projectUrl ?? project.githubUrl;
 
 const sections = [
   { id: "intro", label: "Intro", icon: "intro" },
@@ -102,57 +103,11 @@ const sections = [
         <div class="project-list">
           {
             featuredProjects.map((project, index) => (
-              <article class="project-card">
+              <article class:list={["project-card", { "project-card--with-media": Boolean(project.thumbnail) }]}>
                 <div class="project-card__meta">0{index + 1}</div>
-                <div class="project-card__body">
-                  <div class="project-card__heading">
-                    {getProjectTitleHref(project) ? (
-                      <h3>
-                        <a href={getProjectTitleHref(project)} target="_blank" rel="noreferrer">
-                          {project.title}
-                        </a>
-                      </h3>
-                    ) : (
-                      <h3>{project.title}</h3>
-                    )}
-                  </div>
-                  <p>{project.summary}</p>
-                  <p class="project-card__detail">
-                    <span class="project-card__label">Why?</span>
-                    <span>{project.why}</span>
-                  </p>
-                  <p class="project-card__detail project-card__learned">
-                    <span class="project-card__label">Learned</span>
-                    <span>{project.learned}</span>
-                  </p>
-                  {project.githubUrl && (
-                    <a class="project-card__repo-link" href={project.githubUrl} target="_blank" rel="noreferrer">
-                      <Icon name="github" class="ui-icon ui-icon--link" />
-                      <span>Repo</span>
-                    </a>
-                  )}
-                </div>
-                {project.tags && (
-                  <ul class="tag-list" aria-label={`${project.title} tags`}>
-                    {project.tags.map((tag) => <li>{tag}</li>)}
-                  </ul>
-                )}
-              </article>
-            ))
-          }
-        </div>
-
-        {extraProjects.length > 0 && (
-          <details class="project-overflow">
-            <summary>Show {extraProjects.length} more project{extraProjects.length === 1 ? "" : "s"}</summary>
-            <div class="project-list project-list--extra">
-              {
-                extraProjects.map((project, index) => (
-                  <article class="project-card">
-                    <div class="project-card__meta">
-                      0{featuredProjects.length + index + 1}
-                    </div>
-                    <div class="project-card__body">
+                <div class="project-card__main">
+                  <div class="project-card__top">
+                    <div class="project-card__header">
                       <div class="project-card__heading">
                         {getProjectTitleHref(project) ? (
                           <h3>
@@ -165,26 +120,148 @@ const sections = [
                         )}
                       </div>
                       <p>{project.summary}</p>
-                      <p class="project-card__detail">
-                        <span class="project-card__label">Why?</span>
-                        <span>{project.why}</span>
-                      </p>
-                      <p class="project-card__detail project-card__learned">
-                        <span class="project-card__label">Learned</span>
-                        <span>{project.learned}</span>
-                      </p>
+                    </div>
+                    <div class="project-card__actions">
+                      {project.projectUrl && (
+                        <a class="project-card__action-link" href={project.projectUrl} target="_blank" rel="noreferrer">
+                          <Icon name="spark" class="ui-icon ui-icon--link" />
+                          <span>Live</span>
+                        </a>
+                      )}
                       {project.githubUrl && (
-                        <a class="project-card__repo-link" href={project.githubUrl} target="_blank" rel="noreferrer">
+                        <a class="project-card__action-link" href={project.githubUrl} target="_blank" rel="noreferrer">
                           <Icon name="github" class="ui-icon ui-icon--link" />
                           <span>Repo</span>
                         </a>
                       )}
                     </div>
-                    {project.tags && (
-                      <ul class="tag-list" aria-label={`${project.title} tags`}>
-                        {project.tags.map((tag) => <li>{tag}</li>)}
-                      </ul>
-                    )}
+                  </div>
+                  {project.thumbnail && (
+                    <div class="project-card__artifact">
+                      <div class="project-card__media">
+                        <div class="project-card__media-frame">
+                          {getProjectThumbnailHref(project) ? (
+                            <a
+                              class="project-card__media-link"
+                              href={getProjectThumbnailHref(project)}
+                              target="_blank"
+                              rel="noreferrer"
+                              aria-label={`Open ${project.title}`}
+                            >
+                              <img
+                                src={project.thumbnail.src}
+                                alt={project.thumbnail.alt}
+                                loading="lazy"
+                              />
+                            </a>
+                          ) : (
+                            <img
+                              src={project.thumbnail.src}
+                              alt={project.thumbnail.alt}
+                              loading="lazy"
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div class:list={["project-card__support", { "project-card__support--text-only": !project.thumbnail }]}>
+                    <p class="project-card__detail">
+                      <span class="project-card__label">Why?</span>
+                      <span>{project.why}</span>
+                    </p>
+                    <p class="project-card__detail project-card__learned">
+                      <span class="project-card__label">Learned</span>
+                      <span>{project.learned}</span>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        {extraProjects.length > 0 && (
+          <details class="project-overflow">
+            <summary>Show {extraProjects.length} more project{extraProjects.length === 1 ? "" : "s"}</summary>
+            <div class="project-list project-list--extra">
+              {
+                extraProjects.map((project, index) => (
+                  <article class:list={["project-card", { "project-card--with-media": Boolean(project.thumbnail) }]}>
+                    <div class="project-card__meta">
+                      0{featuredProjects.length + index + 1}
+                    </div>
+                    <div class="project-card__main">
+                      <div class="project-card__top">
+                        <div class="project-card__header">
+                          <div class="project-card__heading">
+                            {getProjectTitleHref(project) ? (
+                              <h3>
+                                <a href={getProjectTitleHref(project)} target="_blank" rel="noreferrer">
+                                  {project.title}
+                                </a>
+                              </h3>
+                            ) : (
+                              <h3>{project.title}</h3>
+                            )}
+                          </div>
+                          <p>{project.summary}</p>
+                        </div>
+                        <div class="project-card__actions">
+                          {project.projectUrl && (
+                            <a class="project-card__action-link" href={project.projectUrl} target="_blank" rel="noreferrer">
+                              <Icon name="spark" class="ui-icon ui-icon--link" />
+                              <span>Live</span>
+                            </a>
+                          )}
+                          {project.githubUrl && (
+                            <a class="project-card__action-link" href={project.githubUrl} target="_blank" rel="noreferrer">
+                              <Icon name="github" class="ui-icon ui-icon--link" />
+                              <span>Repo</span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                      {project.thumbnail && (
+                        <div class="project-card__artifact">
+                          <div class="project-card__media">
+                            <div class="project-card__media-frame">
+                              {getProjectThumbnailHref(project) ? (
+                                <a
+                                  class="project-card__media-link"
+                                  href={getProjectThumbnailHref(project)}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  aria-label={`Open ${project.title}`}
+                                >
+                                  <img
+                                    src={project.thumbnail.src}
+                                    alt={project.thumbnail.alt}
+                                    loading="lazy"
+                                  />
+                                </a>
+                              ) : (
+                                <img
+                                  src={project.thumbnail.src}
+                                  alt={project.thumbnail.alt}
+                                  loading="lazy"
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      <div class:list={["project-card__support", { "project-card__support--text-only": !project.thumbnail }]}>
+                        <p class="project-card__detail">
+                          <span class="project-card__label">Why?</span>
+                          <span>{project.why}</span>
+                        </p>
+                        <p class="project-card__detail project-card__learned">
+                          <span class="project-card__label">Learned</span>
+                          <span>{project.learned}</span>
+                        </p>
+                      </div>
+                    </div>
                   </article>
                 ))
               }
