@@ -6,13 +6,15 @@ import {
   ContactRound,
   Lightbulb,
   Mail,
+  Menu,
   NotebookText,
   Package,
   Search,
   Server,
   Settings2,
   ListCheck,
-  Sparkles
+  Sparkles,
+  X
 } from "lucide/dist/esm/lucide.mjs";
 import { type IconNode } from "lucide/dist/lucide";
 
@@ -25,11 +27,13 @@ type IconName =
   | "inspect"
   | "intro"
   | "linkedin"
+  | "menu"
   | "note"
   | "package"
   | "server"
   | "spark"
-  | "skills";
+  | "skills"
+  | "x";
 
 type Props = {
   name: IconName;
@@ -47,11 +51,13 @@ const iconMap: Record<IconName, IconNode> = {
   inspect: Search,
   intro: Lightbulb,
   linkedin: ContactRound,
+  menu: Menu,
   note: NotebookText,
   package: Package,
   server: Server,
   spark: Sparkles,
-  skills: ListCheck
+  skills: ListCheck,
+  x: X
 };
 
 const icon = iconMap[name];

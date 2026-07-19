@@ -16,7 +16,6 @@ const getProjectThumbnailHref = (project: Project) => project.projectUrl ?? proj
 
 const sections = [
   { id: "intro", label: "Intro", icon: "intro" },
-  { id: "services", label: "Services", icon: "package" },
   { id: "professional-projects", label: "Professional", icon: "briefcase" },
   { id: "projects", label: "Personal", icon: "spark" },
   { id: "skills", label: "Skills", icon: "skills" },
@@ -28,8 +27,20 @@ const sections = [
   <div class="page-shell">
     <header class="hero" id="intro">
       <nav class="site-nav" aria-label="Section navigation">
-        <a class="brand" href="#intro">{siteConfig.name}</a>
-        <div class="site-nav__links">
+        <div class="site-nav__top">
+          <a class="brand" href="#intro">{siteConfig.name}</a>
+          <button
+            type="button"
+            class="site-nav__toggle"
+            aria-expanded="false"
+            aria-controls="site-nav-links"
+            aria-label="Open navigation menu"
+          >
+            <Icon name="menu" class="ui-icon ui-icon--nav-toggle site-nav__toggle-icon site-nav__toggle-icon--menu" />
+            <Icon name="x" class="ui-icon ui-icon--nav-toggle site-nav__toggle-icon site-nav__toggle-icon--close" />
+          </button>
+        </div>
+        <div class="site-nav__links" id="site-nav-links">
           {
             sections.map((section) => (
               <a href={`#${section.id}`}>
@@ -141,19 +152,20 @@ const sections = [
                       <div class="project-card__media">
                         <div class="project-card__media-frame">
                           {getProjectThumbnailHref(project) ? (
-                            <a
+                            <button
+                              type="button"
                               class="project-card__media-link"
-                              href={getProjectThumbnailHref(project)}
-                              target="_blank"
-                              rel="noreferrer"
-                              aria-label={`Open ${project.title}`}
+                              data-lightbox-src={project.thumbnail.src}
+                              data-lightbox-alt={project.thumbnail.alt}
+                              data-lightbox-title={project.title}
+                              aria-label={`Expand ${project.title} preview`}
                             >
                               <img
                                 src={project.thumbnail.src}
                                 alt={project.thumbnail.alt}
                                 loading="lazy"
                               />
-                            </a>
+                            </button>
                           ) : (
                             <img
                               src={project.thumbnail.src}
@@ -227,19 +239,20 @@ const sections = [
                           <div class="project-card__media">
                             <div class="project-card__media-frame">
                               {getProjectThumbnailHref(project) ? (
-                                <a
+                                <button
+                                  type="button"
                                   class="project-card__media-link"
-                                  href={getProjectThumbnailHref(project)}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  aria-label={`Open ${project.title}`}
+                                  data-lightbox-src={project.thumbnail.src}
+                                  data-lightbox-alt={project.thumbnail.alt}
+                                  data-lightbox-title={project.title}
+                                  aria-label={`Expand ${project.title} preview`}
                                 >
                                   <img
                                     src={project.thumbnail.src}
                                     alt={project.thumbnail.alt}
                                     loading="lazy"
                                   />
-                                </a>
+                                </button>
                               ) : (
                                 <img
                                   src={project.thumbnail.src}
@@ -325,6 +338,82 @@ const sections = [
           </div>
         </div>
       </section>
+
+      <dialog class="lightbox" aria-label="Expanded project media">
+        <div class="lightbox__inner">
+          <form method="dialog" class="lightbox__close-row">
+            <button type="submit" class="lightbox__close" aria-label="Close preview">
+              <Icon name="x" class="ui-icon ui-icon--lightbox-close" />
+            </button>
+          </form>
+          <figure class="lightbox__figure">
+            <img class="lightbox__image" alt="" />
+            <figcaption class="lightbox__caption"></figcaption>
+          </figure>
+        </div>
+      </dialog>
     </main>
   </div>
+
+  <script>
+    const nav = document.querySelector(".site-nav");
+    const navToggle = document.querySelector(".site-nav__toggle");
+    const navLinks = document.querySelector(".site-nav__links");
+    const lightbox = document.querySelector(".lightbox");
+    const lightboxImage = lightbox?.querySelector(".lightbox__image");
+    const lightboxCaption = lightbox?.querySelector(".lightbox__caption");
+    const lightboxTriggers = document.querySelectorAll(".project-card__media-link[data-lightbox-src]");
+
+    if (nav instanceof HTMLElement && navToggle instanceof HTMLButtonElement && navLinks instanceof HTMLElement) {
+      const closeNav = () => {
+        nav.dataset.navOpen = "false";
+        navToggle.setAttribute("aria-expanded", "false");
+      };
+
+      navToggle.addEventListener("click", () => {
+        const isOpen = nav.dataset.navOpen === "true";
+        nav.dataset.navOpen = isOpen ? "false" : "true";
+        navToggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
+      });
+
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeNav);
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 720) {
+          closeNav();
+        }
+      });
+    }
+
+    if (lightbox instanceof HTMLDialogElement && lightboxImage instanceof HTMLImageElement && lightboxCaption instanceof HTMLElement) {
+      lightboxTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const src = trigger.getAttribute("data-lightbox-src");
+          const alt = trigger.getAttribute("data-lightbox-alt") ?? "";
+          const title = trigger.getAttribute("data-lightbox-title") ?? "";
+
+          if (!src) return;
+
+          lightboxImage.src = src;
+          lightboxImage.alt = alt;
+          lightboxCaption.textContent = title;
+          lightbox.showModal();
+        });
+      });
+
+      lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) {
+          lightbox.close();
+        }
+      });
+
+      lightbox.addEventListener("close", () => {
+        lightboxImage.src = "";
+        lightboxImage.alt = "";
+        lightboxCaption.textContent = "";
+      });
+    }
+  </script>
 </BaseLayout>
