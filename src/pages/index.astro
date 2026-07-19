@@ -60,41 +60,7 @@ const sections = [
       </section>
     </header>
 
-    <main class="content-stack">
-      <section class="section-block" id="services">
-        <div class="section-heading">
-          <h2 class="section-title">
-            <Icon name="package" class="ui-icon ui-icon--section" />
-            <span>{siteConfig.services.title}</span>
-          </h2>
-        </div>
 
-        <div class="services-copy">
-          <p>{siteConfig.services.body[0]}</p>
-          <p>
-            From cloud infrastructure and automation to custom tools and everyday IT
-            headaches, I prefer practical solutions over buzzwords.{" "}
-            <span class="copy-emphasis">
-              If the job is too small for a consulting firm, or you just need someone to
-              finally fix the printer, I'd be happy to take a look.
-            </span>
-          </p>
-        </div>
-
-        <div class="services-list">
-          {siteConfig.services.items.map((service, index) => (
-            <article class="service-item">
-              <div class="service-item__icon" aria-hidden="true">
-                {index === 0 && <Icon name="gear" class="ui-icon ui-icon--service" />}
-                {index === 1 && <Icon name="server" class="ui-icon ui-icon--service" />}
-                {index === 2 && <Icon name="inspect" class="ui-icon ui-icon--service" />}
-              </div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
 
       <section class="section-block" id="professional-projects">
         <div class="section-heading">
